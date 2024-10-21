@@ -1,5 +1,9 @@
 # from app import db  # Import db from app.py
-from extensions import db
+# from extensions import db
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()  # Initialize SQLAlchemy instance
 
 class User(db.Model):
     """ User model """

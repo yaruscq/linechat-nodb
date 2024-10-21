@@ -1,8 +1,7 @@
 from flask import Flask, render_template
 from wtform_fields import *
-# from flask_sqlalchemy import SQLAlchemy
-from extensions import db  # Import db from extensions
-from models import User
+# from extensions import db  # Import db from extensions
+from models import db, User
 
 
 app = Flask(__name__)
