@@ -1,4 +1,6 @@
 from flask import Flask, render_template, redirect, url_for
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+
 from wtform_fields import *
 # from extensions import db  # Import db from extensions
 from models import db, User
@@ -14,6 +16,18 @@ db.init_app(app) # initialize db
 
 # with app.app_context():
 #     db.create_all()  # Create the database and the tables
+
+# Configure flask login
+login = LoginManager(app) # type: ignore
+login.init_app(app) # type: ignore
+
+
+@login.user_loader
+def load_user(id):
+   # 不需要： User.query.filter_by(id=id).first(), instead ->
+    return User.query.get(int(id))
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -54,13 +68,31 @@ def login():
 
     # Allow login if validation success
     if login_form.validate_on_submit():
-        return "Logged in, finally!!!"
+        user_object = User.query.filter_by(username=login_form.username.data).first()
+        login_user(user_object)
+        return redirect(url_for('chat'))
 
     return render_template("login.html", form=login_form)
 
 
 
 
+
+@app.route('/chat', methods=['GET', 'POST'])
+# @login_required
+def chat():
+
+    if not current_user.is_authenticated:
+        return "Please login before accessing chat..."
+
+    return 'Chat with me'
+
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    logout_user()
+    return "Logged out using flask-logout!"
 
 
 
