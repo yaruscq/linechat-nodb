@@ -5,7 +5,7 @@ from models import db, User
 
 
 app = Flask(__name__)
-app.secret_key = 'secret'
+app.secret_key = 'McZYq5VSKsV47z3nHIMQQg$nstapVXh1ROlsCB10m6b7qmuWBA3hjhKO1tSTGcVSbU'
 
 # Configure database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
@@ -26,13 +26,18 @@ def index():
         username = reg_form.username.data
         password = reg_form.password.data
 
-        # Check username exists in the db
+        # Hash password
+        # self-custom: using(rounds=1000, salt_size=8)
+        hashed_pswd = pbkdf2_sha256.hash(password)
+        
+        
+        # Check username exists in the db, move to the wtform
         # user_object = User.query.filter_by(username=username).first()
         # if user_object:
         #     return "Someone else has taken this username!"
         
         # Add user into DB
-        user = User(username=username, password=password)
+        user = User(username=username, password=hashed_pswd) # type: ignore
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))
