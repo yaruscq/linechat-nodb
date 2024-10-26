@@ -141,16 +141,18 @@ def leave(data):
 
 
 
-with app.app_context():
-    socketio.run(app)
+# with app.app_context():
+#     socketio.run(app)
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    socketio.run(app, host="0.0.0.0", port=port)
 
-#     app.run(debug=True)
-#     socketio.run(app, debug=True)
-    socketio.run(app)
-    # socketio.run(app, host="127.0.0.1", port=80, debug=True)
-# socketio.run(app)
+# #     app.run(debug=True)
+# #     socketio.run(app, debug=True)
+#     socketio.run(app)
+#     # socketio.run(app, host="127.0.0.1", port=80, debug=True)
+# # socketio.run(app)
 
 
 
