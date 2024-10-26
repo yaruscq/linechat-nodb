@@ -1,3 +1,6 @@
+import eventlet
+eventlet.monkey_patch()
+
 import os
 from time import localtime, strftime
 from flask import Flask, render_template, redirect, url_for, flash
@@ -150,8 +153,8 @@ def leave(data):
 
 
 
-# if __name__ == "__main__" and os.getenv("FLASK_ENV") != "production":
-#     socketio.run(app, debug=True)
+if __name__ == "__main__" and os.getenv("FLASK_ENV") != "production":
+    socketio.run(app, debug=True)
 
 
 
