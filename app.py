@@ -1,3 +1,4 @@
+import os
 from time import localtime, strftime
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
@@ -8,10 +9,10 @@ from models import db, User
 
 
 app = Flask(__name__)
-app.secret_key = 'McZYq5VSKsV47z3nHIMQQg$nstapVXh1ROlsCB10m6b7qmuWBA3hjhKO1tSTGcVSbU'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # Configure database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 
 db.init_app(app) # initialize db
 
@@ -143,6 +144,7 @@ if __name__ == "__main__":
 
     # app.run(debug=True)
     socketio.run(app, debug=True)
+    # socketio.run(app, host="127.0.0.1", port=80, debug=True)
 
 # ~~ python Shell
 
