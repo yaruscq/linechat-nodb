@@ -1,5 +1,5 @@
-import eventlet
-eventlet.monkey_patch()
+# import eventlet
+# eventlet.monkey_patch()
 
 import os
 from time import localtime, strftime
@@ -13,9 +13,10 @@ from models import db, User
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-
+# app.config['SECRET_KEY'] ='McZYq5VSKsV47z3nHIMQQg$nstapVXh1ROlsCB10m6b7qmuWBA3hjhKO1tSTGcVSbU'
 # Configure database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
 
 db.init_app(app) # initialize db
 
@@ -144,12 +145,12 @@ def leave(data):
 # with app.app_context():
 #     socketio.run(app)
 
+# if __name__ == "__main__":
+#     port = int(os.environ.get('PORT', 5000))
+#     socketio.run(app, host="0.0.0.0", port=port)
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    socketio.run(app, host="0.0.0.0", port=port)
-
 # #     app.run(debug=True)
-# #     socketio.run(app, debug=True)
+    socketio.run(app, debug=True)
 #     socketio.run(app)
 #     # socketio.run(app, host="127.0.0.1", port=80, debug=True)
 # # socketio.run(app)
