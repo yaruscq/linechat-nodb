@@ -141,20 +141,21 @@ def leave(data):
 
 
 
-
+with app.app_context():
+    socketio.run(app)
 
 # if __name__ == "__main__":
 
-    # app.run(debug=True)
-    # socketio.run(app, debug=True)
-    # socketio.run(app)
+#     app.run(debug=True)
+#     socketio.run(app, debug=True)
+#     socketio.run(app)
     # socketio.run(app, host="127.0.0.1", port=80, debug=True)
 
 
 
 
-if __name__ == "__main__" and os.getenv("FLASK_ENV") != "production":
-    socketio.run(app, debug=True)
+# if __name__ == "__main__" and os.getenv("FLASK_ENV") != "production":
+#     socketio.run(app, debug=True)
 
 
 
